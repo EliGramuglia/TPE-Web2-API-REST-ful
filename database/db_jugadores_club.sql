@@ -115,9 +115,17 @@ INSERT INTO `jugadores` (`id`, `Nombre`, `Edad`, `Posicion`, `Cantidad_de_goles`
 
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `username`, `email`, `password`) VALUES
+(1, 'admin', 'webadmin@gmail.com', '$2y$10$XnqE2YmODpmTIHvpewSe0epI5OVwgeAX09HmlR2JDDVCkwe6z5LCG');
 
 --
 -- Índices para tablas volcadas
