@@ -1,12 +1,17 @@
 <?php
 require_once './app/models/clubes.model.php';
+require_once './app/controllers/api.controller.php';
+require_once './app/helpers/auth.api.helper.php';
+
 
 class ClubesController extends ApiController{
     private $model;
+    private $authHelper;
 
     public function __construct(){
         parent::__construct();
         $this->model = new ClubesModel();
+        $this->authHelper = new AuthHelper();
     }
 
     public function get($params = []){
@@ -25,6 +30,12 @@ class ClubesController extends ApiController{
 
     //Cuidado con el delete!
     public function delete($params = []) {
+        $user = $this->authHelper->currentUser();
+        if(!$user){
+            $this->view->response('Usuario no autorizado', 401);
+            return;
+        }
+
         $id = $params[':ID'];
         $jugador = $this->model->getClub($id);
 
@@ -37,6 +48,12 @@ class ClubesController extends ApiController{
     }
 
     public function create($params = []){
+        $user = $this->authHelper->currentUser();
+        if(!$user){
+            $this->view->response('Usuario no autorizado', 401);
+            return;
+        }
+
         $body = $this->getData();
 
         $nombre = $body->Nombre_club;
@@ -60,6 +77,12 @@ class ClubesController extends ApiController{
 
 
     public function update($params = []){
+        $user = $this->authHelper->currentUser();
+        if(!$user){
+            $this->view->response('Usuario no autorizado', 401);
+            return;
+        }
+
         $id = $params[':ID'];
         $club = $this->model->getClub($id);
 

@@ -35,9 +35,9 @@
         }
 
         function verify($token) {
-            // $header.$payload.$signature
+            //String que va a tener = $header.$payload.$signature
 
-            $token = explode(".", $token); // [$header, $payload, $signature]
+            $token = explode(".", $token); //Lo separamos y obtenemos un arreglo: [$header, $payload, $signature]
             $header = $token[0];
             $payload = $token[1];
             $signature = $token[2];
@@ -59,8 +59,8 @@
         }
 
         function currentUser() {
-            $auth = $this->getAuthHeaders(); // "Bearer $token"
-            $auth = explode(" ", $auth); // ["Bearer", "$token"]
+            $auth = $this->getAuthHeaders(); //Tipo: "Bearer $token"
+            $auth = explode(" ", $auth); //Obtenemos: ["Bearer", "$token"]
 
             if($auth[0] != "Bearer") {
                 return false;

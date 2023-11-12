@@ -2,6 +2,7 @@
     require_once 'libs/router.php';
     require_once './app/controllers/jugadores.controller.php';
     require_once './app/controllers/clubes.controller.php';
+    require_once './app/controllers/user.api.controller.php';
 
     $router = new Router();
 
