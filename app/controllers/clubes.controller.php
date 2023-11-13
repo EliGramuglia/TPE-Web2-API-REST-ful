@@ -19,7 +19,7 @@ class ClubesController extends ApiController{
             $clubes = $this->model->getClubes();
             $this->view->response($clubes, 200);
         }else{
-            $club = $this->model->getClub($params[':ID']); //ojo, devuelve los jugadores que juegan en ese club
+            $club = $this->model->getClub($params[':ID']); 
             if(!empty($club)){
                 $this->view->response($club, 200);
             }else{
@@ -28,7 +28,7 @@ class ClubesController extends ApiController{
         }
     }
 
-    //Cuidado con el delete!
+   
     public function delete($params = []) {
         $user = $this->authHelper->currentUser();
         if(!$user){

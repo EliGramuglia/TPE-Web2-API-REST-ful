@@ -13,19 +13,64 @@ class JugadoresController extends ApiController{
         $this->authHelper = new AuthHelper();
     }
 
-    public function get($params = []){
-        if(empty($params)){
-            $jugadores = $this->model->getJugadores();
-            $this->view->response($jugadores, 200);
-        }else{
-            $jugador = $this->model->getJugador($params[':ID']);
-            if(!empty($jugador)){
-                $this->view->response($jugador, 200);
-            }else{
-                $this->view->response(['msg' => 'No existe un jugador con el ID = '.$params[':ID']. ' '], 404);
+    public function getAll(){
+
+        //Paginado (empiezo desde la página 0)
+        if(isset($_GET['page']) && is_numeric($_GET['page'])){
+            $page =  $_GET['page'];
+            if($page < 0){
+                $page = 0;
             }
+        } else {  //si el valor no es numerico
+            $page = 0;
         }
+
+        
+        //Filtrado y ordenado
+        $club = isset($_GET ['club']) && !empty($_GET['club']) ? $_GET['club'] : 0; 
+        $clubQuery = '';                                                           
+
+        if($club > 0){                                                             
+            $clubQuery = 'WHERE jugadores.id_club = '. $club;                                 
+        }
+
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+        $order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
+
+        $orderQuery = '';
+        $acceptedOrders = ['ASC','DESC'];
+  
+        if (isset($sort)) {
+          if ($this->model->jugadoresOrderColumn($sort) && in_array(strtoupper($order),$acceptedOrders)) { //strtoupper -> mayuscula
+            $orderQuery = ' ORDER BY '. $sort .' '. $order;
+          }else{
+            $this->view->response(['response' => 'Bad Request'],400);
+            return;                                                                    
+          }        
+        }
+        
+        $jugadores = $this->model->getJugadoresPaginado($page, $clubQuery, $orderQuery);
+
+        if(!empty($jugadores)){
+            $this->view->response($jugadores,200);
+        }else{
+            $this->view->response(['msg' => 'Bad Request!'],400);
+        }
+    
+}
+
+    //Separamos las funciones para desacoplar codigo
+    public function get($params = []){
+        $jugador = $this->model->getJugador($params[':ID']);
+
+        if(!empty($jugador)){
+            $this->view->response($jugador, 200);
+        }else{
+            $this->view->response(['msg' => 'No existe un jugador con el ID = '.$params[':ID']. ' '], 404);
+        }    
+            
     }
+
 
     public function delete($params = []) {
         $user = $this->authHelper->currentUser();

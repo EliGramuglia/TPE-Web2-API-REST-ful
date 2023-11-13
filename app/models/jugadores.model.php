@@ -9,7 +9,17 @@ class JugadoresModel{
     }
 
     public function getJugadores(){
-        $query = $this->db->prepare('SELECT jugadores. *, club.Nombre_club FROM jugadores JOIN club ON jugadores.id_club = club.id_club;');   
+        $query = $this->db->prepare('SELECT jugadores. *, club.Nombre_club FROM jugadores JOIN club 
+        ON jugadores.id_club = club.id_club');   
+        $query->execute();
+
+        $jugadores = $query->fetchall(PDO::FETCH_OBJ);
+        return $jugadores;
+    }
+
+    public function getJugadoresPaginado($page, $clubQuery = '', $orderQuery='' ){
+        $query = $this->db->prepare('SELECT jugadores. *, club.Nombre_club FROM jugadores JOIN club 
+        ON jugadores.id_club = club.id_club  ' . $clubQuery . ' ' . $orderQuery . ' LIMIT 3  OFFSET ' . (($page) * 3));   
         $query->execute();
 
         $jugadores = $query->fetchall(PDO::FETCH_OBJ);
@@ -43,4 +53,12 @@ class JugadoresModel{
 
         return $response;
     }
+
+    public function jugadoresOrderColumn($column){
+        $query = $this->db->prepare("DESCRIBE jugadores");
+        $query->execute();
+        $columnas = $query->fetchAll(PDO::FETCH_COLUMN);
+    
+        return in_array($column,$columnas);
+      }
 }
