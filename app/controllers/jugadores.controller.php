@@ -24,16 +24,28 @@ class JugadoresController extends ApiController{
         } else {  //si el valor no es numerico
             $page = 0;
         }
+        //Cantidad de jugadores que voy a mostrar por página 
+        if(isset($_GET['size']) && is_numeric($_GET['size'])){
+            $size =  $_GET['size'];
+        } else {
+            $size = 5; //si no esta setteado, por defecto muestro solo 5
+        }
 
         
-        //Filtrado y ordenado
-        $club = isset($_GET ['club']) && !empty($_GET['club']) ? $_GET['club'] : 0; 
+        //Filtrado (por club al que pertenecen)
+        if(isset($_GET ['club']) && !empty($_GET['club'])){
+            $club = $_GET ['club'];
+        } else {
+            $club = 0;
+        }
+        
         $clubQuery = '';                                                           
 
         if($club > 0){                                                             
             $clubQuery = 'WHERE jugadores.id_club = '. $club;                                 
         }
 
+        //ordenado
         $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
         $order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
 
@@ -49,7 +61,7 @@ class JugadoresController extends ApiController{
           }        
         }
         
-        $jugadores = $this->model->getJugadoresPaginado($page, $clubQuery, $orderQuery);
+        $jugadores = $this->model->getJugadoresPaginado($page, $clubQuery, $orderQuery, $size);
 
         if(!empty($jugadores)){
             $this->view->response($jugadores,200);

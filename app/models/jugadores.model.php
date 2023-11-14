@@ -17,9 +17,9 @@ class JugadoresModel{
         return $jugadores;
     }
 
-    public function getJugadoresPaginado($page, $clubQuery = '', $orderQuery='' ){
+    public function getJugadoresPaginado($page, $clubQuery = '', $orderQuery='', $size){
         $query = $this->db->prepare('SELECT jugadores. *, club.Nombre_club FROM jugadores JOIN club 
-        ON jugadores.id_club = club.id_club  ' . $clubQuery . ' ' . $orderQuery . ' LIMIT 5  OFFSET ' . (($page) * 5));   
+        ON jugadores.id_club = club.id_club  ' . $clubQuery . ' ' . $orderQuery . ' LIMIT ' . $size . '  OFFSET ' . (($page) * $size));   
         $query->execute();
 
         $jugadores = $query->fetchall(PDO::FETCH_OBJ);

@@ -45,7 +45,7 @@ Ejemplo de uso: /jugadores?club=7
 Ejemplo: de uso: /jugadores?sort=Nombre
 
 Posibles respuestas:
-- 400 Bad Request: 
+- 400 Bad Request: falló la solicitud.
 - 200 OK = la solicitud fue exitosa. Se visualiza la lista correspondiente según lo pedido.
 
 ---------
