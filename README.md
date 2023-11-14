@@ -30,9 +30,9 @@ Los endpoint disponibles son los siguientes:
 
 
 
-### Listar Jugadores
+## Listar Jugadores
 
-Verbo: ####GET
+Verbo: ###GET
 
 GET /jugadores : Obtiene una lista con todos los jugadores actuales de la Selección Argentina.
 
@@ -44,9 +44,9 @@ Posibles respuestas:
 
 ---------
 
-### Obtener jugador por ID
+## Obtener jugador por ID
 
-Verbo: ####GET/:ID
+Verbo: ###GET/:ID
 
 GET /jugadores/id : Se utiliza para obtener toda la información detallada de un jugador.
 
@@ -71,9 +71,9 @@ Posibles respuestas:
 
 ---------
 
-### Agregar jugador
+## Agregar jugador
 
-Verbo: ####POST
+Verbo: ###POST
 
 PARA PODER LLEVAR A CABO ESTA FUNCIÓN SE REQUIERE DE UN TOKEN DE AUTENTICACIÓN.
 
@@ -90,9 +90,9 @@ Posibles respuestas:
 
 ---------
 
-### Modificar jugador
+## Modificar jugador
 
-Verbo: ####PUT
+Verbo: ###PUT
 
 PARA PODER LLEVAR A CABO ESTA FUNCIÓN SE REQUIERE DE UN TOKEN DE AUTENTICACIÓN.
 
@@ -108,9 +108,9 @@ Posibles respuestas:
 
 ---------
 
-### Eliminar jugador
+## Eliminar jugador
 
-Verbo: ####DELETE
+Verbo: ###DELETE
 
 PARA PODER LLEVAR A CABO ESTA FUNCIÓN SE REQUIERE DE UN TOKEN DE AUTENTICACIÓN.
 
