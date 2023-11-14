@@ -48,6 +48,15 @@ Posibles parámetros de consulta:
 - order: indica si el orden en el que se van a visualizar los elementos es ascendete o descendete (por defecto siempre es ASC).
     Ejemplo de uso: /jugadores?order=DESC
 
+
+- Ejemplos de concatenación de parámetros:
+- /jugadores?size=10&sort=Cantidad_de_goles&order=ASC 
+Obtiene 10 jugadores de la selección, ordenados de forma ascendete por la cantidad de goles que convirtieron.
+- /jugadores?page=2&size=8 
+Devuelve la página númerp 2, con 8 jugadores. (La paginación empieza desde cero).
+- /jugadores?club=8&sort=Edad&order=DESC
+Filtra todos los jugadores que pertenezcan al club con id 8, y además nos devuelve la lista ordenado de forma descendente según la edad de los mismos. 
+
 Posibles respuestas:
 - 400 Bad Request: falló la solicitud.
 - 200 OK = la solicitud fue exitosa. Se visualiza la lista correspondiente, según lo pedido.
