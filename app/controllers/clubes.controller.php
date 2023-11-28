@@ -88,13 +88,18 @@ class ClubesController extends ApiController{
 
         if ($club) {
             $body = $this->getData();
+
             $nombre = $body->Nombre_club;
             $fundacion = $body->Fundacion;
             $titulosN = $body->Titulos_nacionales;
             $titulosI = $body->Titulos_internacionales;
 
-            $this->model->updateClub($nombre, $fundacion, $titulosN, $titulosI, $id);
-            $this->view->response("El Club con id= $id ha sido modificado", 200);
+            if (empty($nombre) || empty($fundacion)) { 
+                $this->view->response("Complete todos los datos", 400);
+            }else{
+                $this->model->updateClub($nombre, $fundacion, $titulosN, $titulosI, $id);
+                $this->view->response("El Club con id= $id ha sido modificado", 200);
+            }
         } else {
             $this->view->response("El Club con id=$id no existe", 404);
         }

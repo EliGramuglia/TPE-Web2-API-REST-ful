@@ -146,14 +146,19 @@ class JugadoresController extends ApiController{
 
         if ($jugador) {
             $body = $this->getData();
+
             $nombre = $body->Nombre;
             $edad = $body->Edad;
             $posicion = $body->Posicion;
             $goles = $body->Cantidad_de_goles;
             $id_club = $body->id_club;
 
-            $this->model->updateJugador($nombre, $edad, $posicion, $goles, $id_club, $id);
-            $this->view->response("El jugador con id= $id ha sido modificado", 200);
+            if (empty($nombre) || empty($edad) || empty($posicion) || empty($id_club)) { 
+                $this->view->response("Complete todos los datos", 400);
+            } else {
+                $this->model->updateJugador($nombre, $edad, $posicion, $goles, $id_club, $id);
+                $this->view->response("El jugador con id= $id ha sido modificado", 200);
+            }
         } else {
             $this->view->response("El jugador con id=$id no existe", 404);
         }

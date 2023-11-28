@@ -96,7 +96,21 @@ Posibles respuestas:
 
 PARA PODER LLEVAR A CABO ESTA FUNCIÓN SE REQUIERE DE UN TOKEN DE AUTENTICACIÓN.
 
-POST /jugadores : se utiliza para crear un nuevo jugador. Los nuevos datos se deben proporcionar en el cuerpo de la solicitud.
+POST /jugadores : se utiliza para crear un nuevo jugador. Los nuevos datos se deben proporcionar en el cuerpo de la solicitud. La misma se verá de la siguiente forma:
+
+Ejemplo:
+
+        -Request: /jugadores
+
+        -Response: (200 OK)
+
+        {
+            "Nombre": "Nuevo Jugador",
+            "Edad": 30,
+            "Posicion": "arquero",
+            "Cantidad_de_goles": " ",
+            "id_club": 1
+        }
     
 ¡IMPORTANTE! --->  el campo id_club debe coincidir con el id de un Club existente.
 Algunos de los datos son obligatorios de completar.
@@ -116,13 +130,28 @@ Posibles respuestas:
 
 PARA PODER LLEVAR A CABO ESTA FUNCIÓN SE REQUIERE DE UN TOKEN DE AUTENTICACIÓN.
 
-PUT /jugadores/:id : posibilita la modificación de un jugador mediante un :id. Los nuevos datos se deben actualizar en el cuerpo de la solicitud.
+PUT /jugadores/:id : posibilita la modificación de un jugador mediante un :id. Los nuevos datos se deben actualizar en el cuerpo de la solicitud. La misma se verá de la siguiente forma:
 
-¡IMPORTANTE! --->  el campo id_club debe coincidir con el id de un Club existente.
+Ejemplo:
+
+    -Request: /jugadores/62
+
+    -Response: (200 OK)
+        {
+            "Nombre": "Ejemplo Id 62 Modificado", 
+            "Edad": 27,
+            "Posicion": "delantero",
+            "Cantidad_de_goles": "8",
+            "id_club": 9
+        }
+
+¡IMPORTANTE! --->  el campo id_club debe coincidir con el id de un Club existente. 
+Además todos los campos (a excepción de: Cantidad_de_goles) deben estar completos.
 
 
 Posibles respuestas:
 - 200 OK = El jugador ha sido modificado con éxito.
+- 400 Bad Request = No se han completado todos los datos que son obligatorios*.
 - 401 Unauthorized = el usuario no tiene autorización para crear un nuevo recurso.
 - 404 Not Found = el jugador no se puede modificar, ya que no existe.
 
@@ -181,7 +210,21 @@ Posibles respuestas:
 PARA PODER LLEVAR A CABO ESTA FUNCIÓN SE REQUIERE DE UN TOKEN DE AUTENTICACIÓN.
 
 POST /clubes : se utiliza para crear un nuevo Club. Los nuevos datos se deben proporcionar en el cuerpo de la solicitud.
-Algunos de los datos son obligatorios de completar.
+Algunos de los datos son obligatorios de completar.La misma se verá de la siguiente forma:
+
+Ejemplo:
+
+        -Request: /clubes
+
+        -Response: (200 OK)
+
+        {
+            "Nombre_club": "Nuevo Club",
+            "Fundacion": "2018-01-29",
+            "Titulos_nacionales": 1,
+            "Titulos_internacionales": 2
+        }
+    
 
 Posibles respuestas:
 - 201 Created = El club ha sido creado con éxito! Retorna el recurso creado.
@@ -200,9 +243,23 @@ PARA PODER LLEVAR A CABO ESTA FUNCIÓN SE REQUIERE DE UN TOKEN DE AUTENTICACIÓN
 
 PUT /clubes/:id : permite la modificación de un Club mediante un :id. Los nuevos datos se deben actualizar en el cuerpo de la solicitud.
 
+Ejemplo:
+
+        -Request: /clubes/42
+
+        -Response: (200 OK)
+
+        {
+            "Nombre_club": "Nuevo Club",
+            "Fundacion": "2018-01-29",
+            "Titulos_nacionales": 2,
+            "Titulos_internacionales": 2
+        }
+
 
 Posibles respuestas:
 - 200 OK = El club ha sido modificado con éxito.
+- 400 Bad Request = No se han completado todos los datos que son obligatorios*.
 - 401 Unauthorized = el usuario no tiene autorización para crear un nuevo recurso.
 - 404 Not Found = el club no se puede modificar, ya que no existe.
 
